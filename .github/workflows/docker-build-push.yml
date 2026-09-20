@@ -56,6 +56,9 @@ jobs:
     needs: build-and-push
     runs-on: self-hosted
 
+    env:
+      IMAGE_TAG: ${{ github.sha }}
+
     steps:
       - name: Deploy application
         run: |

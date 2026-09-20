@@ -1,48 +1,113 @@
+/* =========================================
+   1. DESIGN SYSTEM
+========================================= */
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
+  /* Typography */
+  --sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+
+  --heading: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+
+  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  /* Colors */
+  --text: #625b70;
+  --text-h: #171321;
+
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-hover: #faf8ff;
+
+  --border: #e9e5ef;
+
+  --code-bg: #f5f2fa;
+
+  --accent: #9333ea;
+  --accent-hover: #7e22ce;
+
+  --accent-bg: rgba(147, 51, 234, 0.08);
+  --accent-border: rgba(147, 51, 234, 0.35);
+
+  --social-bg: #f7f5fa;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 6px rgba(25, 15, 45, 0.04);
+
   --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    0 10px 25px rgba(25, 15, 45, 0.06),
+    0 3px 8px rgba(25, 15, 45, 0.03);
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --shadow-lg:
+    0 20px 45px rgba(25, 15, 45, 0.10),
+    0 8px 16px rgba(25, 15, 45, 0.04);
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+
+  /* Spacing */
+  --container-width: 1126px;
+
+  /* Animation */
+  --transition: 200ms ease;
+
+  font: 16px/1.65 var(--sans);
+
+  letter-spacing: 0.1px;
+
   color: var(--text);
   background: var(--bg);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  color-scheme: light;
 }
+
+
+/* =========================================
+   2. DARK MODE
+========================================= */
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
+    --text: #b4adbf;
+    --text-h: #f5f3fa;
+
+    --bg: #111015;
+    --surface: #19171f;
+    --surface-hover: #211d2b;
+
+    --border: #302b3a;
+
+    --code-bg: #211d2b;
+
     --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
+    --accent-hover: #d8b4fe;
+
+    --accent-bg: rgba(192, 132, 252, 0.12);
+    --accent-border: rgba(192, 132, 252, 0.4);
+
+    --social-bg: #211d29;
+
+    --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.2);
+
     --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+      0 10px 25px rgba(0, 0, 0, 0.25),
+      0 3px 8px rgba(0, 0, 0, 0.15);
+
+    --shadow-lg:
+      0 20px 45px rgba(0, 0, 0, 0.35),
+      0 8px 16px rgba(0, 0, 0, 0.2);
+
+    color-scheme: dark;
   }
 
   #social .button-icon {
@@ -50,62 +115,534 @@
   }
 }
 
-body {
-  margin: 0;
-}
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+/* =========================================
+   3. GLOBAL RESET
+========================================= */
+
+* {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  background: var(--bg);
+
+  font-family: var(--sans);
+
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button,
+a,
+input,
+textarea,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+
+  transition:
+    color var(--transition),
+    opacity var(--transition);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+}
+
+
+/* =========================================
+   4. MAIN APPLICATION CONTAINER
+========================================= */
+
+#root {
+  width: min(100%, var(--container-width));
+  min-height: 100svh;
+
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--bg);
+
+  border-inline: 1px solid var(--border);
+
+  text-align: center;
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+
+/* =========================================
+   5. TYPOGRAPHY
+========================================= */
+
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--heading);
-  font-weight: 500;
+
   color: var(--text-h);
+
+  font-weight: 600;
+
+  line-height: 1.25;
+
+  margin-top: 0;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+
+  font-weight: 700;
+
+  letter-spacing: -0.055em;
+
+  line-height: 1.1;
+
+  margin: 32px 0 24px;
 }
+
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+
+  font-weight: 600;
+
+  letter-spacing: -0.035em;
+
+  margin: 0 0 12px;
 }
+
+h3 {
+  font-size: 1.2rem;
+
+  letter-spacing: -0.02em;
+
+  margin-bottom: 10px;
+}
+
 p {
-  margin: 0;
+  margin: 0 0 16px;
+
+  line-height: 1.75;
 }
+
+strong {
+  color: var(--text-h);
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   6. CODE BLOCKS
+========================================= */
 
 code,
 .counter {
   font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
+
   color: var(--text-h);
+
+  border-radius: var(--radius-sm);
+
+  display: inline-flex;
 }
 
 code {
-  font-size: 15px;
-  line-height: 135%;
+  font-size: 0.875rem;
+
+  line-height: 1.6;
+
   padding: 4px 8px;
+
   background: var(--code-bg);
+
+  border: 1px solid var(--border);
+}
+
+pre {
+  overflow-x: auto;
+
+  padding: 20px;
+
+  border-radius: var(--radius-md);
+
+  background: var(--code-bg);
+
+  border: 1px solid var(--border);
+
+  text-align: left;
+
+  box-shadow: var(--shadow-sm);
+}
+
+pre code {
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  border-radius: 0;
+}
+
+
+/* =========================================
+   7. BUTTONS
+========================================= */
+
+button {
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  padding: 10px 18px;
+
+  color: var(--text-h);
+
+  background: var(--surface);
+
+  font-weight: 500;
+
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+button:hover {
+  background: var(--surface-hover);
+
+  border-color: var(--accent-border);
+
+  box-shadow: var(--shadow-sm);
+
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent-border);
+
+  outline-offset: 3px;
+}
+
+
+/* Primary button */
+
+.button-primary {
+  background: var(--accent);
+
+  color: #ffffff;
+
+  border-color: transparent;
+
+  font-weight: 600;
+
+  box-shadow: 0 4px 12px rgba(147, 51, 234, 0.18);
+}
+
+.button-primary:hover {
+  background: var(--accent-hover);
+
+  color: #ffffff;
+
+  box-shadow: 0 6px 18px rgba(147, 51, 234, 0.25);
+}
+
+
+/* =========================================
+   8. INPUTS AND FORMS
+========================================= */
+
+input,
+textarea,
+select {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-md);
+
+  background: var(--surface);
+
+  color: var(--text-h);
+
+  outline: none;
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background-color var(--transition);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text);
+
+  opacity: 0.7;
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--accent-border);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--accent);
+
+  box-shadow: 0 0 0 4px var(--accent-bg);
+}
+
+textarea {
+  min-height: 120px;
+
+  resize: vertical;
+}
+
+
+/* =========================================
+   9. CARDS
+========================================= */
+
+.card {
+  padding: 24px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-sm);
+
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition),
+    border-color var(--transition),
+    background-color var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+
+  border-color: var(--accent-border);
+
+  box-shadow: var(--shadow);
+}
+
+
+/* =========================================
+   10. SOCIAL BUTTONS
+========================================= */
+
+#social {
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+}
+
+#social .button-icon {
+  width: 20px;
+  height: 20px;
+
+  object-fit: contain;
+
+  transition: transform var(--transition);
+}
+
+#social button:hover .button-icon {
+  transform: scale(1.08);
+}
+
+
+/* =========================================
+   11. COUNTER
+========================================= */
+
+.counter {
+  align-items: center;
+
+  justify-content: center;
+
+  min-width: 32px;
+
+  padding: 4px 10px;
+
+  background: var(--accent-bg);
+
+  border: 1px solid var(--accent-border);
+
+  color: var(--accent);
+
+  font-size: 0.875rem;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   12. SELECTION AND SCROLLBAR
+========================================= */
+
+::selection {
+  background: var(--accent-bg);
+
+  color: var(--text-h);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text);
+}
+
+
+/* =========================================
+   13. RESPONSIVE DESIGN
+========================================= */
+
+@media (max-width: 1024px) {
+  :root {
+    font-size: 15px;
+  }
+
+  #root {
+    border-inline: none;
+  }
+
+  h1 {
+    margin: 24px 0 20px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    font-size: 14px;
+  }
+
+  body {
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+
+    letter-spacing: -0.045em;
+
+    margin: 20px 0 16px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .card {
+    padding: 16px;
+
+    border-radius: var(--radius-md);
+  }
+
+  button {
+    padding: 10px 14px;
+  }
+
+  pre {
+    padding: 14px;
+
+    border-radius: var(--radius-sm);
+  }
+
+  #social {
+    gap: 8px;
+  }
+}
+
+
+/* =========================================
+   14. ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+  }
 }

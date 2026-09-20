@@ -1,4 +1,4 @@
-name: Build and Push Docker Images
+name: Build, Push and Deploy
 
 on:
   push:
@@ -12,6 +12,9 @@ env:
   BACKEND_IMAGE: devabhaym/devops-task-manager-backend
 
 jobs:
+  # ---------------------------------------------
+  # JOB 1: Build and push Docker images
+  # ---------------------------------------------
   build-and-push:
     runs-on: ubuntu-latest
 
@@ -45,3 +48,22 @@ jobs:
           tags: |
             ${{ env.BACKEND_IMAGE }}:latest
             ${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+
+  # ---------------------------------------------
+  # JOB 2: Deploy on the Ubuntu VM
+  # ---------------------------------------------
+  deploy:
+    needs: build-and-push
+    runs-on: self-hosted
+
+    steps:
+      - name: Deploy application
+        run: |
+          cd /home/vagrant/task-manager
+          docker compose pull
+          docker compose up -d
+
+      - name: Verify deployment
+        run: |
+          docker compose -f /home/vagrant/task-manager/docker-compose.yml ps
+          curl --fail http://localhost:8080/api/health

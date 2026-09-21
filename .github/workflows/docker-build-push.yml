@@ -63,9 +63,15 @@ jobs:
       - name: Deploy application
         run: |
           cd /home/vagrant/task-manager
+
+          echo "Deploying image tag: $IMAGE_TAG"
+
           docker compose pull
           docker compose up -d
 
+      # ---------------------------------------------
+      # Verify deployment
+      # ---------------------------------------------
       - name: Verify deployment
         run: |
           cd /home/vagrant/task-manager

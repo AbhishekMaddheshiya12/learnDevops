@@ -7,6 +7,10 @@ on:
 
   workflow_dispatch:
 
+concurrency:
+  group: task-manager-deployment
+  cancel-in-progress: false
+
 env:
   FRONTEND_IMAGE: devabhaym/devops-task-manager-frontend
   BACKEND_IMAGE: devabhaym/devops-task-manager-backend
